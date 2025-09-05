@@ -1,0 +1,26 @@
+{
+    "name": "Algorithm.Molecular_VQE",
+    "kind": "algorithm",
+    "description": "VQE algorithm optimized for molecular systems",
+    "tags": ["vqe", "molecular", "chemistry", "ground_state"],
+    "needs": ["hamiltonian", "ansatz"],
+    "provides": ["ground_state_energy", "vqe_result"],
+    "yields": {
+        "ground_state_energy": "float",
+        "vqe_result": "VQEResult object"
+    },
+    "params_schema": {
+        "maxiter": {
+            "type": "int",
+            "description": "Maximum optimization iterations",
+            "default": 3000,
+            "range": [100, 10000]
+        }
+    },
+    "helper_function": "run_molecular_vqe",
+    "invoke_template": "{var}_result, {var}_energy = run_molecular_vqe({hamiltonian_var}, {ansatz_var}, maxiter)",
+    "codegen_hint": {
+        "cell_name": "algorithm_molecular_vqe",
+        "import": "from qiskit.primitives import Estimator; from qiskit_algorithms import VQE; from qiskit_algorithms.optimizers import L_BFGS_B"
+    }
+}

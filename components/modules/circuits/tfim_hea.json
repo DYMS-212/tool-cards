@@ -1,0 +1,21 @@
+{
+  "name": "Circuit.TFIM_HEA",
+  "kind": "ansatz",
+  "description": "Hardware Efficient Ansatz specialized for TFIM", 
+  "tags": ["tfim", "hea", "hardware_efficient", "ansatz"],
+  "needs": [],
+  "provides": ["ansatz"],
+  "params_schema": {
+    "n": {"type": "int", "description": "Number of qubits"},
+    "reps": {"type": "int", "description": "Circuit depth (number of layers)"}
+  },
+  "yields": {
+    "ansatz": "QuantumCircuit ansatz"
+  },
+  "helper_function": "tfim_hea",
+  "invoke_template": "{var}_ansatz = tfim_hea(n, reps)",
+  "codegen_hint": {
+    "cell_name": "circuit_tfim_hea",
+    "import": "from qiskit import QuantumCircuit; from qiskit.circuit import ParameterVector"
+  }
+}

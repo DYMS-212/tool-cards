@@ -1,0 +1,20 @@
+{
+  "name": "Optimizer.L_BFGS_B",
+  "kind": "optimizer",
+  "description": "L-BFGS-B gradient-based classical optimizer",
+  "tags": ["l_bfgs_b", "classical", "gradient_based"],
+  "needs": [],
+  "provides": ["optimizer"],
+  "params_schema": {
+    "maxiter": {"type": "int", "description": "Maximum iterations"}
+  },
+  "yields": {
+    "optimizer": "L_BFGS_B optimizer instance"
+  },
+  "helper_function": "create_l_bfgs_b_optimizer",
+  "invoke_template": "{var}_optimizer = create_l_bfgs_b_optimizer(maxiter)",
+  "codegen_hint": {
+    "cell_name": "optimizer_l_bfgs_b",
+    "import": "from qiskit_algorithms.optimizers import L_BFGS_B"
+  }
+}

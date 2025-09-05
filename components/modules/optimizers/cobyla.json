@@ -1,0 +1,20 @@
+{
+  "name": "Optimizer.COBYLA",
+  "kind": "optimizer",
+  "description": "COBYLA gradient-free classical optimizer",
+  "tags": ["cobyla", "classical", "gradient_free"],
+  "needs": [],
+  "provides": ["optimizer"],
+  "params_schema": {
+    "maxiter": {"type": "int", "description": "Maximum iterations"}
+  },
+  "yields": {
+    "optimizer": "COBYLA optimizer instance"
+  },
+  "helper_function": "create_cobyla_optimizer",
+  "invoke_template": "{var}_optimizer = create_cobyla_optimizer(maxiter)",
+  "codegen_hint": {
+    "cell_name": "optimizer_cobyla",
+    "import": "from qiskit_algorithms.optimizers import COBYLA"
+  }
+}

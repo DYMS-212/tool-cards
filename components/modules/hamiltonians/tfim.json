@@ -1,0 +1,32 @@
+{
+  "name": "Hamiltonian.TFIM",
+  "kind": "hamiltonian",
+  "description": "Transverse-Field Ising Model Hamiltonian",
+  "tags": ["tfim", "ising", "spin", "transverse_field"],
+  "needs": [],
+  "provides": ["hamiltonian"],
+  "params_schema": {
+    "n": {"type": "int", "description": "Number of qubits"},
+    "hx": {"type": "float", "description": "Transverse field strength"},
+    "j": {"type": "float", "description": "Coupling strength"},
+    "boundary": {
+      "type": "str", 
+      "description": "Boundary condition",
+      "format": "periodic|open",
+      "format_rules": [
+        "Must be exactly 'periodic' or 'open'",
+        "Convert any boundary description to these exact strings"
+      ],
+      "enum": ["periodic", "open"]
+    }
+  },
+  "yields": {
+    "H": "SparsePauliOp hamiltonian"
+  },
+  "helper_function": "build_tfim_h",
+  "invoke_template": "{var}_hamiltonian = build_tfim_h(n, hx, j, boundary)",
+  "codegen_hint": {
+    "cell_name": "hamiltonian_tfim",
+    "import": "from qiskit.quantum_info import SparsePauliOp"
+  }
+}

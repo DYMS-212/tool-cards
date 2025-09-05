@@ -1,0 +1,18 @@
+{
+    "name": "Circuit.UCCSD",
+    "kind": "ansatz", 
+    "description": "Unitary Coupled Cluster Singles and Doubles ansatz",
+    "tags": ["uccsd", "molecular", "chemistry", "coupled_cluster"],
+    "needs": ["es_problem", "mapper"],
+    "provides": ["ansatz"],
+    "yields": {
+        "ansatz": "QuantumCircuit ansatz"
+    },
+    "params_schema": {},
+    "helper_function": "build_uccsd_ansatz",
+    "invoke_template": "{var}_ansatz = build_uccsd_ansatz({es_problem_var}, {mapper_var})",
+    "codegen_hint": {
+        "cell_name": "circuit_uccsd",
+        "import": "from qiskit_nature.second_q.circuit.library import UCCSD; from qiskit_nature.second_q.circuit.library import HartreeFock"
+    }
+}

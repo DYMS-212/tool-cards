@@ -1,0 +1,22 @@
+{
+  "name": "Algorithm.VQE",
+  "kind": "algorithm",
+  "description": "Variational Quantum Eigensolver for ground state energy computation",
+  "tags": ["vqe", "variational", "ground_state"],
+  "needs": ["hamiltonian", "estimator", "ansatz", "optimizer"],
+  "provides": ["energy", "result"],
+  "params_schema": {
+    "optimizer": {"type": "str", "description": "Optimizer name"},
+    "maxiter": {"type": "int", "description": "Maximum iterations"}
+  },
+  "yields": {
+    "result": "VQE result object",
+    "energy": "float ground state energy"
+  },
+  "helper_function": "run_vqe",
+  "invoke_template": "{var}_result = run_vqe({hamiltonian_var}, {ansatz_var}, {optimizer_var}, {estimator_var})",
+  "codegen_hint": {
+    "cell_name": "algorithm_vqe",
+    "import": "from qiskit_algorithms import VQE"
+  }
+}

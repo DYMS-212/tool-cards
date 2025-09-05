@@ -1,0 +1,61 @@
+{
+    "name": "Hamiltonian.Molecular",
+    "kind": "hamiltonian",
+    "description": "Molecular electronic structure Hamiltonian",
+    "tags": ["molecular", "chemistry", "electronic_structure", "pyscf"],
+    "needs": [],
+    "provides": ["hamiltonian", "es_problem", "mapper"],
+    "yields": {
+        "hamiltonian": "SparsePauliOp Hamiltonian",
+        "es_problem": "Electronic structure problem",
+        "mapper": "Fermion-to-qubit mapper"
+    },
+    "params_schema": {
+        "molecule": {
+            "type": "str",
+            "description": "Molecule name (e.g. LiH, BeH2, H2O)",
+            "default": "LiH"
+        },
+        "basis_set": {
+            "type": "str", 
+            "description": "Basis set (e.g. sto3g, 6-31g, cc-pvdz)",
+            "default": "sto3g"
+        },
+        "atom_string": {
+            "type": "str",
+            "description": "Atomic coordinates string",
+            "format": "ELEMENT X Y Z; ELEMENT X Y Z; ...",
+            "format_rules": [
+                "Transform ANY geometry description into: ELEMENT X Y Z; ELEMENT X Y Z; ...",
+                "Extract coordinates from text like 'Be at (0,0,0), H atoms at (0,0,1.34) and (0,0,-1.34)'",
+                "Convert distance descriptions like 'LiH with R: 1.4' to 'Li 0 0 0; H 0 0 1.4'",
+                "Use atomic symbols (Li, Be, H, O, C, N, etc.) with decimal coordinates in Angstroms",
+                "Apply chemical knowledge for bond lengths and molecular geometries when needed"
+            ],
+            "examples": [
+                "Li 0 0 0; H 0 0 0.735",
+                "Be 0 0 0; H 0 0 1.34; H 0 0 -1.34",
+                "H 0 0 0; H 0 0 0.74"
+            ],
+            "default": "Li 0 0 0; H 0 0 0.735"
+        },
+        "charge": {
+            "type": "int",
+            "description": "Molecular charge",
+            "default": 0,
+            "range": [-3, 3]
+        },
+        "spin": {
+            "type": "int", 
+            "description": "Spin multiplicity",
+            "default": 0,
+            "range": [0, 4]
+        }
+    },
+    "helper_function": "build_molecular_hamiltonian",
+    "invoke_template": "{var}_hamiltonian, {var}_problem, {var}_mapper = build_molecular_hamiltonian(molecule, basis_set, atom_string, charge, spin)",
+    "codegen_hint": {
+        "cell_name": "hamiltonian_molecular",
+        "import": "from qiskit_nature.second_q.drivers import PySCFDriver; from qiskit_nature.second_q.mappers import JordanWignerMapper; from qiskit_nature.units import DistanceUnit"
+    }
+}
